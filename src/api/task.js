@@ -48,7 +48,7 @@ export async function createTask(data) {
 	}
 }
 
-export async function getTasks(sectionGid) {
+export async function getTasks() {
 	const options = {
 		method: "GET",
 		headers: {
@@ -60,13 +60,15 @@ export async function getTasks(sectionGid) {
 
 	try {
 		const response = await fetch(
-			`https://app.asana.com/api/1.0/sections/${sectionGid}/tasks`,
+			"https://app.asana.com/api/1.0/tasks?assignee=me&workspace=1208824681641786&opt_fields=due_on,name",
 			options
 		);
-		const data = await response.json();
-		console.log(data);
+		const result = await response.json();
+		console.log(result);
+		return result;
 	} catch (error) {
 		console.error(error);
+		throw error;
 	}
 }
 
